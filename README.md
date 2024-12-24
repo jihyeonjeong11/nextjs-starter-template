@@ -1,3 +1,57 @@
+12-23
+
+커스텀 디버깅 페이지 아래 앱컨픽 사용
+
+앱상태 컨픽
+
+- 1. 랜딩
+- 2. 점검중
+- 3. 커밍 순
+
+폴더 구조
+
+(docs) 인앱 독스 추가부분
+
+(main) 실제 데모 앱 추가 부분
+
+lib - 외부 라이브러리 사용 부분
+
+외부 라이브러리 개요
+
+nextjs-toploader - 내부 내비게이션 시 로딩 바
+cslx - 클래스에 조건을 거는 등 더 쉽게 사용가능
+twmerge - tailwinds 클래스를 합치는 과정에서(리액트 프롭으로 받을 때) 더 쉽게 넣을 수 있음
+lucide-react - icon 모음 및 svg 그리기
+
+```
+// 사용법
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+<Component
+      className={cn("px-5 py-14 md:px-6 md:py-20 lg:py-24", className)}
+      {...restProps}
+    >
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center">
+        {children}
+      </div>
+    </Component>
+
+```
+
+25일까지
+
+커밍순 페이지 가라
+랜딩 페이지 가라
+커스텀 테스팅 모달 -> 앱 컨픽 상태 변경할 수 있도록
+페이지뷰
+
+12/24
+
+radix react/slot 확인하기
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
