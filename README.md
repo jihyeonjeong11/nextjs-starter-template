@@ -41,18 +41,33 @@ export function cn(...inputs: ClassValue[]) {
 
 ```
 
-25일까지
-
-커밍순 페이지 가라
-랜딩 페이지 가라
 커스텀 테스팅 모달 -> 앱 컨픽 상태 변경할 수 있도록
-페이지뷰
 
 12/24
 
 radix react/slot 확인하기
 
+- polymophism을 위해 사용
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+12/25
+
+커밍순 페이지
+랜딩 페이지 작성 중
+
+12/28
+
+- done
+  added cva for css variants
+  added sign in button
+
+- to be done
+  푸터
+  테마
+  © 2024 Group Finder. All Rights Reserved. Built with ❤️ by Groupie, LLC
+
+회원가입 폼
 
 ## Getting Started
 

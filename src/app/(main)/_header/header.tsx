@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HeaderLinks } from "./header-links";
+import { Button } from "@/app/components/ui/button";
 
 export default function Header() {
   return (
@@ -19,6 +20,12 @@ export default function Header() {
           </span>
         </Link>
         <HeaderLinks isAuthenticated={false} />
+        <div className="flex items-center justify-between gap-5">
+          {" "}
+          <Button asChild variant="secondary">
+            <Link href="/sign-in">Sign In</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
