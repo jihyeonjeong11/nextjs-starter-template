@@ -1,6 +1,8 @@
-import Container from "@/app/components/container";
-import { Button } from "@/app/components/ui/button";
-import { CheckIcon, Link } from "lucide-react";
+import { SignedIn, SignedOut } from "@/components/auth";
+import Container from "@/components/container";
+import { Button } from "@/components/ui/button";
+import { CheckIcon } from "lucide-react";
+import Link from "next/link";
 
 function PricingCard({
   title,
@@ -38,17 +40,23 @@ function PricingCard({
       </ul>
 
       <div className="mt-auto">
-        {hasSubscription ? (
-          <Button variant={"default"} asChild>
-            <Link href={"/dashboard"}>Go to Dashboard</Link>
-          </Button>
-        ) : (
-          <Button className="w-full">Upgrade now</Button>
-        )}
+        <SignedIn>
+          {hasSubscription ? (
+            <Button variant={"default"} asChild>
+              <Link href={"/dashboard"}>Go to Dashboard</Link>
+            </Button>
+          ) : (
+            <Button priceId={priceId} className="w-full">
+              Upgrade now
+            </Button>
+          )}
+        </SignedIn>
 
-        <Button variant={"default"} asChild className="w-full">
-          <Link href={"/sign-in"}>Sign in to Upgrade</Link>
-        </Button>
+        <SignedOut>
+          <Button variant={"default"} asChild className="w-full">
+            <Link href={"/sign-in"}>Sign in to Upgrade</Link>
+          </Button>
+        </SignedOut>
       </div>
     </div>
   );

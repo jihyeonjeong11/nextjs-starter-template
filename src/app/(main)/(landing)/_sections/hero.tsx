@@ -1,6 +1,6 @@
-import Container from "@/app/components/container";
-import { Badge } from "@/app/components/ui/badge";
-import { Button } from "@/app/components/ui/button";
+import Container from "@/components/container";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 

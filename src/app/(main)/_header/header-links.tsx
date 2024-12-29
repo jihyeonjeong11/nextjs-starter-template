@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
 import useMediaQuery from "@/hooks/use-media-query";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

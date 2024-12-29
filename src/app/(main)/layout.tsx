@@ -1,3 +1,5 @@
+import { appConfig } from "../app-config";
+import Footer from "../../components/footer";
 import Header from "./_header/header";
 
 export default function MainLayout({
@@ -6,9 +8,10 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div className="flex flex-col w-full">
       <Header />
-      {children}
+      <div>{children}</div>
+      {appConfig.mode === "comingSoon" ? null : <Footer />}
     </div>
   );
 }

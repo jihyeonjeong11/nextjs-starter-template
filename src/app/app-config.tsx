@@ -1,7 +1,7 @@
 export const appConfig: {
   mode: "comingSoon" | "maintenance" | "live";
 } = {
-  mode: "comingSoon", // "live",
+  mode: "live", // "live",
 };
 
 // export const protectedRoutes = ["/purchases", "/dashboard"];
