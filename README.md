@@ -62,10 +62,29 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   added cva for css variants
   added sign in button
 
+- [ ] `@radix-ui/react-alert-dialog`: `1.1.2`
+- [ ] `@radix-ui/react-avatar`: `1.1.1`
+- [ ] `@radix-ui/react-checkbox`: `1.1.2`
+- [ ] `@radix-ui/react-dialog`: `1.1.2`
+- [ ] `@radix-ui/react-dropdown-menu`: `2.1.2`
+- [ ] `@radix-ui/react-label`: `2.1.0`
+- [ ] `@radix-ui/react-popover`: `1.1.2`
+- [ ] `@radix-ui/react-scroll-area`: `1.2.1`
+- [ ] `@radix-ui/react-select`: `2.1.2`
+- [x] `@radix-ui/react-slot`: `1.1.0`
+- [ ] `@radix-ui/react-switch`: `1.1.1`
+- [ ] `@radix-ui/react-tabs`: `1.1.1`
+- [ ] `@radix-ui/react-toast`: `1.2.2`
+- [ ] `@radix-ui/react-tooltip`: `1.1.4`
+
 - to be done
   푸터
   테마
   © 2024 Group Finder. All Rights Reserved. Built with ❤️ by Groupie, LLC
+
+  12/30
+
+  서버액션 단점: 3rd party에게 api를 노출하기 힘듬
 
 회원가입 폼
 
