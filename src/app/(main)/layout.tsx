@@ -1,6 +1,7 @@
 import { appConfig } from "../app-config";
 import Footer from "../../components/footer";
 import Header from "./_header/header";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function MainLayout({
   children,
@@ -11,6 +12,7 @@ export default function MainLayout({
     <div className="flex flex-col w-full">
       <Header />
       <div>{children}</div>
+      <Toaster />
       {appConfig.mode === "comingSoon" ? null : <Footer />}
     </div>
   );

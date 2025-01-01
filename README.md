@@ -1,3 +1,5 @@
+https://app.gumroad.com/d/d4921cd7dd380c6757b47058f5be99d0
+
 12-23
 
 커스텀 디버깅 페이지 아래 앱컨픽 사용
@@ -62,19 +64,19 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   added cva for css variants
   added sign in button
 
-- [ ] `@radix-ui/react-alert-dialog`: `1.1.2`
+- [] `@radix-ui/react-alert-dialog`: `1.1.2`
 - [ ] `@radix-ui/react-avatar`: `1.1.1`
 - [ ] `@radix-ui/react-checkbox`: `1.1.2`
 - [ ] `@radix-ui/react-dialog`: `1.1.2`
 - [ ] `@radix-ui/react-dropdown-menu`: `2.1.2`
-- [ ] `@radix-ui/react-label`: `2.1.0`
+- [x] `@radix-ui/react-label`: `2.1.0`
 - [ ] `@radix-ui/react-popover`: `1.1.2`
 - [ ] `@radix-ui/react-scroll-area`: `1.2.1`
 - [ ] `@radix-ui/react-select`: `2.1.2`
 - [x] `@radix-ui/react-slot`: `1.1.0`
 - [ ] `@radix-ui/react-switch`: `1.1.1`
 - [ ] `@radix-ui/react-tabs`: `1.1.1`
-- [ ] `@radix-ui/react-toast`: `1.2.2`
+- [x] `@radix-ui/react-toast`: `1.2.2`
 - [ ] `@radix-ui/react-tooltip`: `1.1.4`
 
 - to be done
@@ -85,6 +87,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   12/30
 
   서버액션 단점: 3rd party에게 api를 노출하기 힘듬
+
+  12/31
+
+  컴포넌트에 React.forwardRef를 붙이는 이유. 타입설정 가능 + ref 이름으로 넘기면 리액트에서 에러 띄움
+  https://stackoverflow.com/questions/70150131/why-do-we-need-react-forwardref-if-we-can-simple-pass-the-created-ref-in-props
 
 회원가입 폼
 

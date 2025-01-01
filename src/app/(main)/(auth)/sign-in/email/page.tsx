@@ -15,10 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { LoaderButton } from "@/components/loader-button";
 import { useServerAction } from "zsa-react";
 import { signInAction } from "./actions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useToast } from "@/components/ui/use-toast";
 
 const registrationSchema = z.object({
   email: z.string().email(),
@@ -26,6 +27,7 @@ const registrationSchema = z.object({
 });
 
 export default function EmailPage() {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
     defaultValues: {
@@ -34,19 +36,19 @@ export default function EmailPage() {
     },
   });
 
-  const { execute, isPending, error, reset } = useServerAction(signInAction, {
+  const { execute, isPending, error } = useServerAction(signInAction, {
     onError({ err }) {
-      // toast({
-      //   title: "Something went wrong",
-      //   description: err.message,
-      //   variant: "destructive",
-      // });
+      toast({
+        title: "Something went wrong",
+        description: err.message,
+        variant: "destructive",
+      });
     },
     onSuccess() {
-      // toast({
-      //   title: "Let's Go!",
-      //   description: "Enjoy your session",
-      // });
+      toast({
+        title: "Let's Go!",
+        description: "Enjoy your session",
+      });
     },
   });
 
@@ -97,7 +99,7 @@ export default function EmailPage() {
             )}
           />
 
-          {/* {error && (
+          {error && (
             <Alert variant="destructive">
               <Terminal className="h-4 w-4" />
               <AlertTitle>Uh-oh, we couldn&apos;t log you in</AlertTitle>
@@ -105,7 +107,6 @@ export default function EmailPage() {
             </Alert>
           )}
 
-          */}
           <LoaderButton isLoading={isPending} className="w-full" type="submit">
             Sign In
           </LoaderButton>
