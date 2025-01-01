@@ -28,6 +28,7 @@ const registrationSchema = z.object({
 
 export default function EmailPage() {
   const { toast } = useToast();
+
   const form = useForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
     defaultValues: {

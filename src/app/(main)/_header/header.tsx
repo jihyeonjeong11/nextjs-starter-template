@@ -2,8 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { HeaderLinks } from "./header-links";
 import { Button } from "@/components/ui/button";
+import { getCurrentUser } from "@/lib/session";
 
-export default function Header() {
+export default async function Header() {
+  const user = await getCurrentUser();
+
   return (
     <div className="px-5 md:px-6">
       <div className="mx-auto flex w-full max-w-7xl py-4 justify-between">
@@ -20,7 +23,7 @@ export default function Header() {
               Placeholder app
             </span>
           </Link>
-          <HeaderLinks isAuthenticated={false} />
+          <HeaderLinks isAuthenticated={!!user} />
         </div>
         <div className="flex items-center justify-between gap-5">
           <Button asChild variant="secondary">

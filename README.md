@@ -93,6 +93,10 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   컴포넌트에 React.forwardRef를 붙이는 이유. 타입설정 가능 + ref 이름으로 넘기면 리액트에서 에러 띄움
   https://stackoverflow.com/questions/70150131/why-do-we-need-react-forwardref-if-we-can-simple-pass-the-created-ref-in-props
 
+  1/1
+
+  fumadocs/mdx 세팅 추가
+
 회원가입 폼
 
 ## Getting Started

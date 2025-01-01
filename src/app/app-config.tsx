@@ -4,6 +4,7 @@ export const appConfig: {
   mode: "live", // "live",
 };
 
-// export const protectedRoutes = ["/purchases", "/dashboard"];
+export const protectedRoutes = ["/purchases", "/dashboard"];
 export const applicationName = "Placeholder";
 export const companyName = "Lorem, LLC";
+export const afterLoginUrl = "/dashboard";

@@ -1,3 +1,5 @@
+import { createPreset } from "fumadocs-ui/tailwind-plugin";
+
 const config = {
   darkMode: ["class"],
   content: [
@@ -9,6 +11,7 @@ const config = {
     "./content/**/*.mdx",
   ],
   prefix: "",
+  presets: [createPreset()],
   theme: {
     container: {
       center: true,
@@ -23,7 +26,9 @@ const config = {
         space: "url('/so-black.png')",
         plus: "url('/plus.svg')",
       },
-      fontFamily: {},
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -84,7 +89,7 @@ const config = {
       },
     },
   },
-  //plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [],
 };
 
 export default config;
