@@ -12,7 +12,6 @@ export default function MainLayout({
     <div className="flex flex-col w-full">
       <Header />
       <div>{children}</div>
-      <Toaster />
       {appConfig.mode === "comingSoon" ? null : <Footer />}
     </div>
   );

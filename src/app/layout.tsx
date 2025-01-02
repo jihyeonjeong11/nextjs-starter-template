@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { RootProvider } from "fumadocs-ui/provider";
+import { BreakpointOverlay } from "@/components/breakpoint-overlay";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +37,8 @@ export default function RootLayout({
           <NextTopLoader />
         </RootProvider>
         {children}
+        <Toaster />
+        <BreakpointOverlay />
       </body>
     </html>
   );

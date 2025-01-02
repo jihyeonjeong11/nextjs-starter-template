@@ -64,7 +64,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   added cva for css variants
   added sign in button
 
-- [] `@radix-ui/react-alert-dialog`: `1.1.2`
+- [ ] `@radix-ui/react-alert-dialog`: `1.1.2`
 - [ ] `@radix-ui/react-avatar`: `1.1.1`
 - [ ] `@radix-ui/react-checkbox`: `1.1.2`
 - [ ] `@radix-ui/react-dialog`: `1.1.2`
@@ -93,9 +93,15 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   컴포넌트에 React.forwardRef를 붙이는 이유. 타입설정 가능 + ref 이름으로 넘기면 리액트에서 에러 띄움
   https://stackoverflow.com/questions/70150131/why-do-we-need-react-forwardref-if-we-can-simple-pass-the-created-ref-in-props
 
+  next docs 에서 Link 이하의 children에서 compoenent를 불러올 경우 사용 불가능함. 아래 docs 확인
+
+  https://nextjs.org/docs/pages/api-reference/components/link#if-the-child-is-a-functional-component
+
   1/1
 
   fumadocs/mdx 세팅 추가
+
+  1/2
 
 회원가입 폼
 

@@ -10,10 +10,10 @@ export function HeroSection() {
       <div className="flex flex-col md:flex-row gap-y-14 w-full justify-between">
         <div>
           <Badge className="text-sm md:text-base">
-            Discover like-minded individuals
+            Placeholder community app
           </Badge>
           <h1 className="text-5xl md:text-7xl max-w-3xl mt-10 leading-[1.2] font-semibold">
-            Create and Discover New Hobby Groups
+            Create and Placeholder community app
           </h1>
           <p className="mt-5 text-gray-500 text-lg max-w-[600px]">
             Our online service makes it easy to connect with others who share
