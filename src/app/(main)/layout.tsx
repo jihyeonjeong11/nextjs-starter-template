@@ -1,7 +1,6 @@
 import { appConfig } from "../app-config";
 import Footer from "../../components/footer";
 import Header from "./_header/header";
-import { Toaster } from "@/components/ui/toaster";
 
 export default function MainLayout({
   children,

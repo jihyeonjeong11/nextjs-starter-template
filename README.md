@@ -103,6 +103,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
   1/2
 
+  known issue: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used
+  RootLayout의 RootProvider 참고 fumadocs
+
 회원가입 폼
 
 ## Getting Started

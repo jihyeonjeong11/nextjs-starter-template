@@ -18,8 +18,8 @@ export const signInAction = unauthenticatedAction
   )
   .handler(async ({ input }) => {
     await rateLimitByKey({ key: input.email, limit: 3, window: 10000 });
-    const user = await signInUseCase(input.email, input.password);
-    await setSession(user.id);
+    await signInUseCase(input.email, input.password);
+    //await setSession(user.id);
     //redirect(afterLoginUrl);
   });
 

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Lines } from "@/app/(coming-soon)/coming-soon";
+import { Lines } from "@/app/(main)/(coming-soon)/coming-soon";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
