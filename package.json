@@ -1,5 +1,5 @@
 {
-  "name": "wdc-starter-clone",
+  "name": "placeholder-starter",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "db:push": "drizzle-kit push --config=drizzle.config.ts",
+    "db:generate": "drizzle-kit generate --config=drizzle.config.ts",
+    "db:studio": "drizzle-kit studio",
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
@@ -27,6 +30,7 @@
     "next": "15.1.2",
     "next-themes": "^0.4.4",
     "nextjs-toploader": "^3.7.15",
+    "postgres": "^3.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",

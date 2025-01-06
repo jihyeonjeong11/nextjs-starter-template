@@ -106,6 +106,63 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   known issue: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used
   RootLayout의 RootProvider 참고 fumadocs
 
+  1/3
+
+  위 이슈 해결 html에 suppressHydrationWarning 추가
+
+  ![clean structure](public/docs/clean-architecture.png)
+
+```
+// e.g.) 해당 nextjs에서 use-case의 비즈니스 로직 호출
+
+export default async function DangerTab({
+  params,
+}: {
+  params: Promise<{ groupId: string }>;
+}) {
+  const { groupId } = await params;
+  const groupIdInt = parseInt(groupId);
+  const user = await assertAuthenticated();
+  const group = await getGroupByIdUseCase(user, groupIdInt);
+
+  if (!group) {
+    return <div>Group not found</div>;
+  }
+  ...
+}
+
+
+
+```
+
+```
+
+// use-case 내부에서는 유저가 어떤 데이터인지 신경쓰지 않음. 해당 유저데이터를 근거로 db에 명령을 전달할 뿐.
+
+export async function getGroupByIdUseCase(
+  authenticatedUser: UserSession,
+  groupId: GroupId
+) {
+  await assertGroupMember(authenticatedUser, groupId);
+  // 그룹이 존재하지 않거나 유저가 그룹 오너가 아니라면 에러, use case 안에서 유저가 어떤 유저인지 판별함.
+  // 프론트에서는 보여주는 데이터를 보여줄 뿐이지, 프론트에서 유저 스테이터스를 받고 해당 유저가 그룹 오너인지 판별할 필요가 없음
+  return await getGroupById(groupId);
+}
+```
+
+01/06
+
+docker 환경에서 postgres 추가
+drizzle 데이터베이스 킷 추가
+
+env, schema, docker compose, dockerfile 확인
+package.json 의 db 관련 커맨드 확인
+
+task: db 폴더 확인
+index: 보일러플레이트 + env
+seed: 시작 데이터 추가
+clear: 디비 지우기
+
 회원가입 폼
 
 ## Getting Started
