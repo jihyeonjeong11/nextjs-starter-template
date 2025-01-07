@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { applicationName, companyName } from "../app/app-config";
+import { applicationName, companyName } from "../app-config";
 
 export default function Footer() {
   return (

@@ -75,3 +75,33 @@ export const groups = pgTable(
     ),
   })
 );
+
+export const sessions = pgTable(
+  "gf_session",
+  {
+    id: text("id").primaryKey(),
+    userId: serial("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    expiresAt: timestamp("expires_at", {
+      withTimezone: true,
+      mode: "date",
+    }).notNull(),
+  },
+  (table) => ({
+    userIdIdx: index("sessions_user_id_idx").on(table.userId),
+  })
+);
+
+/**
+ * TYPES
+ *
+ * You can create and export types from your schema to use in your application.
+ * This is useful when you need to know the shape of the data you are working with
+ * in a component or function.
+ */
+
+export type User = typeof users.$inferSelect;
+export type Profile = typeof profiles.$inferSelect;
+
+export type Session = typeof sessions.$inferSelect;

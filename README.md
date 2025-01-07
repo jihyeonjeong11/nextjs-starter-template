@@ -163,6 +163,10 @@ index: 보일러플레이트 + env
 seed: 시작 데이터 추가
 clear: 디비 지우기
 
+signin 메소드
+세션 추가 필요
+getCurrentUser 메소드
+
 회원가입 폼
 
 ## Getting Started

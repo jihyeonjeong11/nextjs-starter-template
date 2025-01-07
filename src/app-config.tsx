@@ -7,4 +7,4 @@ export const appConfig: {
 export const protectedRoutes = ["/purchases", "/dashboard"];
 export const applicationName = "Placeholder";
 export const companyName = "Lorem, LLC";
-export const afterLoginUrl = "/dashboard";
+export const afterLoginUrl = "/";

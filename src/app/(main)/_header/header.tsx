@@ -6,6 +6,7 @@ import { getCurrentUser } from "@/lib/session";
 
 export default async function Header() {
   const user = await getCurrentUser();
+  const isSignedIn = !!user;
 
   return (
     <div className="px-5 md:px-6">
@@ -26,9 +27,15 @@ export default async function Header() {
           <HeaderLinks isAuthenticated={!!user} />
         </div>
         <div className="flex items-center justify-between gap-5">
-          <Button asChild variant="secondary">
-            <Link href="/sign-in">Sign In</Link>
-          </Button>
+          {isSignedIn ? (
+            <Button asChild variant="secondary">
+              <Link href="/sign-in">Profile</Link>
+            </Button>
+          ) : (
+            <Button asChild variant="secondary">
+              <Link href="/sign-in">Sign In</Link>
+            </Button>
+          )}
         </div>
       </div>
     </div>
