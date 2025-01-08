@@ -7,9 +7,12 @@ import Link from "next/link";
 import { btnIconStyles, btnStyles } from "@/styles/icons";
 import { Search } from "lucide-react";
 import { assertAuthenticated } from "@/lib/session";
+import { getGroupsByUserUseCase } from "@/use-cases/groups";
 
 export default async function DashboardPage() {
   const user = await assertAuthenticated();
+
+  const groups = await getGroupsByUserUseCase(user);
 
   return (
     <div
