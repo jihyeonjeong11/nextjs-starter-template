@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut } from "@/components/auth";
+import { SignedIn, SignedOut } from "@/auth";
 import Container from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { CheckIcon } from "lucide-react";

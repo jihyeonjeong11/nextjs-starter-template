@@ -9,7 +9,7 @@ export default function MainLayout({
 }>) {
   return (
     <div className="flex flex-col w-full">
-      <Header />
+      {appConfig.mode === "live" && <Header />}
       <div>{children}</div>
       {appConfig.mode === "comingSoon" ? null : <Footer />}
     </div>

@@ -1,5 +1,5 @@
 import { database } from "@/db";
-import { User, accounts, users } from "@/db/schema";
+import { Profile, User, accounts, profiles, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { UserId } from "@/use-cases/types";
 import { hashPassword } from "./utils";
@@ -45,4 +45,14 @@ export async function verifyPassword(email: string, plainTextPassword: string) {
 
   const hash = await hashPassword(plainTextPassword, salt);
   return account.password == hash;
+}
+
+export async function updateProfile(
+  userId: UserId,
+  updateProfile: Partial<Profile>
+) {
+  await database
+    .update(profiles)
+    .set(updateProfile)
+    .where(eq(profiles.userId, userId));
 }

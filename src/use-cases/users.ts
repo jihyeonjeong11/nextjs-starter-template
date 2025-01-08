@@ -5,13 +5,14 @@ import {
 } from "@/data-access/users";
 import { LoginError, PublicError } from "./errors";
 import { createAccount } from "@/data-access/accounts";
-import {
-  uniqueNamesGenerator,
-  Config,
-  colors,
-  animals,
-} from "unique-names-generator";
-import { createProfile } from "@/data-access/profiles";
+import { uniqueNamesGenerator, colors, animals } from "unique-names-generator";
+import { createProfile, getProfile } from "@/data-access/profiles";
+import { UserId } from "./types";
+import { env } from "@/env";
+
+export function getProfileImageUrl(userId: UserId, imageId: string) {
+  return `${env.HOST_NAME}/api/users/${userId}/images/${imageId ?? "default"}`;
+}
 
 export async function signInUseCase(email: string, password: string) {
   const user = await getUserByEmail(email);
@@ -61,3 +62,20 @@ export async function registerUserUseCase(email: string, password: string) {
 
   return { id: user.id };
 }
+
+export async function getUserProfileUseCase(userId: UserId) {
+  const profile = await getProfile(userId);
+
+  if (!profile) {
+    throw new PublicError("User not found");
+  }
+
+  return profile;
+}
+
+// export async function updateProfileNameUseCase(
+//   userId: UserId,
+//   displayName: string
+// ) {
+//   await updateProfile(userId, { displayName });
+// }

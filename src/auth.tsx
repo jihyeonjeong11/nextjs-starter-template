@@ -93,3 +93,7 @@ export async function validateSessionToken(
 export type SessionValidationResult =
   | { session: Session; user: User }
   | { session: null; user: null };
+
+export async function invalidateSession(sessionId: string): Promise<void> {
+  await database.delete(sessions).where(eq(sessions.id, sessionId));
+}
