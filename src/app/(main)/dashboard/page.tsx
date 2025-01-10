@@ -12,7 +12,7 @@ import { getGroupsByUserUseCase } from "@/use-cases/groups";
 export default async function DashboardPage() {
   const user = await assertAuthenticated();
 
-  const groups = await getGroupsByUserUseCase(user);
+  // const groups = await getGroupsByUserUseCase(user); // check db schema
 
   return (
     <div

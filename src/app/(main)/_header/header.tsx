@@ -51,7 +51,6 @@ export default async function Header() {
 async function HeaderActions() {
   const user = await getCurrentUser();
   const isSignedIn = !!user;
-  console.log("actions", user);
   return (
     <>
       {isSignedIn ? (

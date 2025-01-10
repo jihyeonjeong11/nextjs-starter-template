@@ -32,7 +32,7 @@ export function ProfileNameForm({ profileName }: { profileName: string }) {
   });
 
   const { execute: updateProfileName, isPending } = useServerAction(
-    () => null, //(updateProfileNameAction),
+    updateProfileNameAction,
     {
       onSuccess: () => {
         toast({

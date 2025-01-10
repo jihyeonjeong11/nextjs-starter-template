@@ -6,6 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getUserProfileLoader } from "./page";
 import { getProfileImageUrl } from "@/use-cases/users";
 import { ConfigurationPanel } from "@/components/configuration-panel";
+import { ProfileImageForm } from "./profile-image-form";
 
 export function getProfileImageFullUrl(profile: Profile) {
   return profile.imageId
@@ -43,7 +44,7 @@ async function ProfileImageContent() {
         className="h-[200px] sm:h-[100px] w-full object-cover rounded-xl mb-4 sm:mb-6"
         alt="Profile image"
       />
-      {/* <ProfileImageForm /> */}
+      <ProfileImageForm />
     </div>
   );
 }

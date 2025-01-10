@@ -1,5 +1,5 @@
 import { database } from "@/db";
-import { profiles } from "@/db/schema";
+import { Profile, profiles } from "@/db/schema";
 import { UserId } from "@/use-cases/types";
 import { eq } from "drizzle-orm";
 
@@ -26,4 +26,14 @@ export async function getProfile(userId: UserId) {
   });
 
   return profile;
+}
+
+export async function updateProfile(
+  userId: UserId,
+  updateProfile: Partial<Profile>
+) {
+  await database
+    .update(profiles)
+    .set(updateProfile)
+    .where(eq(profiles.userId, userId));
 }

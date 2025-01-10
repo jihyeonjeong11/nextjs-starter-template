@@ -1,6 +1,7 @@
 import {
   createUser,
   getUserByEmail,
+  updateProfile,
   verifyPassword,
 } from "@/data-access/users";
 import { LoginError, PublicError } from "./errors";
@@ -9,6 +10,13 @@ import { uniqueNamesGenerator, colors, animals } from "unique-names-generator";
 import { createProfile, getProfile } from "@/data-access/profiles";
 import { UserId } from "./types";
 import { env } from "@/env";
+
+export async function updateProfileNameUseCase(
+  userId: UserId,
+  displayName: string
+) {
+  await updateProfile(userId, { displayName });
+}
 
 export function getProfileImageUrl(userId: UserId, imageId: string) {
   return `${env.HOST_NAME}/api/users/${userId}/images/${imageId ?? "default"}`;

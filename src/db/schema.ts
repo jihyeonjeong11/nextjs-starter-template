@@ -8,6 +8,7 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
+import { Group } from "next/dist/shared/lib/router/utils/route-regex";
 
 export const roleEnum = pgEnum("role", ["member", "admin"]);
 export const accountTypeEnum = pgEnum("type", ["email", "google", "github"]);
@@ -105,3 +106,5 @@ export type User = typeof users.$inferSelect;
 export type Profile = typeof profiles.$inferSelect;
 
 export type Session = typeof sessions.$inferSelect;
+
+export type GroupId = Group["id"];
