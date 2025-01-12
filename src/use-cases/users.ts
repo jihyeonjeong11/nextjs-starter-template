@@ -1,21 +1,32 @@
 import {
   createUser,
+  deletePasswordResetToken,
+  deleteUser,
+  getPasswordResetToken,
   getUserByEmail,
   updateProfile,
   verifyPassword,
 } from "@/data-access/users";
 import { LoginError, PublicError } from "./errors";
-import { createAccount } from "@/data-access/accounts";
+import { createAccount, updatePassword } from "@/data-access/accounts";
 import { uniqueNamesGenerator, colors, animals } from "unique-names-generator";
 import { createProfile, getProfile } from "@/data-access/profiles";
-import { UserId } from "./types";
+import { UserId, UserSession } from "./types";
 import { env } from "@/env";
+import { createPasswordResetToken } from "@/data-access/reset-tokens";
+import { redirect } from "next/navigation";
+import { createTransaction } from "@/data-access/utils";
+import { deleteSessionForUser } from "@/data-access/sessions";
 
 export async function updateProfileNameUseCase(
   userId: UserId,
   displayName: string
 ) {
   await updateProfile(userId, { displayName });
+}
+
+export async function updateProfileBioUseCase(userId: UserId, bio: string) {
+  await updateProfile(userId, { bio });
 }
 
 export function getProfileImageUrl(userId: UserId, imageId: string) {
@@ -87,3 +98,41 @@ export async function getUserProfileUseCase(userId: UserId) {
 // ) {
 //   await updateProfile(userId, { displayName });
 // }
+
+export async function resetPasswordUseCase(email: string) {
+  const user = await getUserByEmail(email);
+
+  if (!user) {
+    return null;
+  }
+
+  const token = await createPasswordResetToken(user.id);
+  redirect(`/reset-password?token=${token}`);
+}
+
+export async function deleteUserUseCase(
+  authenticatedUser: UserSession,
+  userToDeleteId: UserId
+): Promise<void> {
+  if (authenticatedUser.id !== userToDeleteId) {
+    throw new PublicError("You can only delete your own account");
+  }
+
+  await deleteUser(userToDeleteId);
+}
+
+export async function changePasswordUseCase(token: string, password: string) {
+  const tokenEntry = await getPasswordResetToken(token);
+
+  if (!tokenEntry) {
+    throw new PublicError("Invalid token");
+  }
+
+  const userId = tokenEntry.userId;
+
+  await createTransaction(async (trx) => {
+    await deletePasswordResetToken(token, trx);
+    await updatePassword(userId, password, trx);
+    await deleteSessionForUser(userId, trx);
+  });
+}

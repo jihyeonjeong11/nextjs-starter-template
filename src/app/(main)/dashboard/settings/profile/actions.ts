@@ -2,9 +2,13 @@
 
 import { rateLimitByKey } from "@/lib/limiter";
 import { authenticatedAction } from "@/lib/safe-actions";
-import { updateProfileNameUseCase } from "@/use-cases/users";
+import {
+  updateProfileBioUseCase,
+  updateProfileNameUseCase,
+} from "@/use-cases/users";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import sanitizeHtml from "sanitize-html";
 
 export const updateProfileNameAction = authenticatedAction
   .createServerAction()
@@ -34,4 +38,16 @@ export const updateProfileImageAction = authenticatedAction
     const file = input.fileWrapper.get("file") as File;
     // await updateProfileImageUseCase(file, ctx.user.id);
     // revalidatePath(`/dashboard/settings/profile`);
+  });
+
+export const updateProfileBioAction = authenticatedAction
+  .createServerAction()
+  .input(
+    z.object({
+      bio: z.string(),
+    })
+  )
+  .handler(async ({ input, ctx }) => {
+    await updateProfileBioUseCase(ctx.user.id, sanitizeHtml(input.bio));
+    revalidatePath(`/dashboard/settings/profile`);
   });

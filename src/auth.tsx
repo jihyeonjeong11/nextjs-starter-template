@@ -90,10 +90,14 @@ export async function validateSessionToken(
   return { session: sessionInDb, user };
 }
 
-export type SessionValidationResult =
-  | { session: Session; user: User }
-  | { session: null; user: null };
-
 export async function invalidateSession(sessionId: string): Promise<void> {
   await database.delete(sessions).where(eq(sessions.id, sessionId));
 }
+
+export async function invalidateUserSessions(userId: UserId): Promise<void> {
+  await database.delete(sessions).where(eq(users.id, userId));
+}
+
+export type SessionValidationResult =
+  | { session: Session; user: User }
+  | { session: null; user: null };

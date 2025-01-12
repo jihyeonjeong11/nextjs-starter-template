@@ -1,7 +1,7 @@
 import { database } from "@/db";
 import { accounts } from "@/db/schema";
 import { UserId } from "@/use-cases/types";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import crypto from "crypto";
 import { hashPassword } from "./utils";
 
@@ -26,4 +26,20 @@ export async function createAccount(userId: UserId, password: string) {
     })
     .returning();
   return account;
+}
+
+export async function updatePassword(
+  userId: UserId,
+  password: string,
+  trx = database
+) {
+  const salt = crypto.randomBytes(128).toString("base64");
+  const hash = await hashPassword(password, salt);
+  await trx
+    .update(accounts)
+    .set({
+      password: hash,
+      salt,
+    })
+    .where(and(eq(accounts.userId, userId), eq(accounts.accountType, "email")));
 }

@@ -1,5 +1,12 @@
 import { database } from "@/db";
-import { Profile, User, accounts, profiles, users } from "@/db/schema";
+import {
+  Profile,
+  User,
+  accounts,
+  profiles,
+  resetTokens,
+  users,
+} from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { UserId } from "@/use-cases/types";
 import { hashPassword } from "./utils";
@@ -55,4 +62,20 @@ export async function updateProfile(
     .update(profiles)
     .set(updateProfile)
     .where(eq(profiles.userId, userId));
+}
+
+export async function getPasswordResetToken(token: string) {
+  const existingToken = await database.query.resetTokens.findFirst({
+    where: eq(resetTokens.token, token),
+  });
+
+  return existingToken;
+}
+
+export async function deletePasswordResetToken(token: string, trx = database) {
+  await trx.delete(resetTokens).where(eq(resetTokens.token, token));
+}
+
+export async function deleteUser(userId: UserId) {
+  await database.delete(users).where(eq(users.id, userId));
 }

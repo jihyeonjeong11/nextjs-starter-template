@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   boolean,
   index,
@@ -8,7 +9,6 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { Group } from "next/dist/shared/lib/router/utils/route-regex";
 
 export const roleEnum = pgEnum("role", ["member", "admin"]);
 export const accountTypeEnum = pgEnum("type", ["email", "google", "github"]);
@@ -77,6 +77,26 @@ export const groups = pgTable(
   })
 );
 
+export const memberships = pgTable(
+  "gf_membership",
+  {
+    id: serial("id").primaryKey(),
+    userId: serial("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    groupId: serial("groupId")
+      .notNull()
+      .references(() => groups.id, { onDelete: "cascade" }),
+    role: roleEnum("role").default("member"),
+  },
+  (table) => ({
+    userIdGroupIdIdx: index("memberships_user_id_group_id_idx").on(
+      table.userId,
+      table.groupId
+    ),
+  })
+);
+
 export const sessions = pgTable(
   "gf_session",
   {
@@ -94,6 +114,45 @@ export const sessions = pgTable(
   })
 );
 
+export const resetTokens = pgTable(
+  "gf_reset_tokens",
+  {
+    id: serial("id").primaryKey(),
+    userId: serial("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" })
+      .unique(),
+    token: text("token"),
+    tokenExpiresAt: timestamp("tokenExpiresAt", { mode: "date" }),
+  },
+  (table) => ({
+    tokenIdx: index("reset_tokens_token_idx").on(table.token),
+  })
+);
+
+/**
+ * RELATIONSHIPS
+ *
+ * Here you can define drizzle relationships between table which helps improve the type safety
+ * in your code.
+ */
+
+export const groupRelations = relations(groups, ({ many }) => ({
+  memberships: many(memberships),
+}));
+
+export const membershipRelations = relations(memberships, ({ one }) => ({
+  user: one(users, { fields: [memberships.userId], references: [users.id] }),
+  profile: one(profiles, {
+    fields: [memberships.userId],
+    references: [profiles.userId],
+  }),
+  group: one(groups, {
+    fields: [memberships.groupId],
+    references: [groups.id],
+  }),
+}));
+
 /**
  * TYPES
  *
@@ -101,6 +160,10 @@ export const sessions = pgTable(
  * This is useful when you need to know the shape of the data you are working with
  * in a component or function.
  */
+
+export type Group = typeof groups.$inferSelect;
+export type NewGroup = typeof groups.$inferInsert;
+export type Membership = typeof memberships.$inferSelect;
 
 export type User = typeof users.$inferSelect;
 export type Profile = typeof profiles.$inferSelect;
