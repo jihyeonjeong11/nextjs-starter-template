@@ -9,6 +9,7 @@ import { Session, sessions, User, users } from "@/db/schema";
 import { database } from "@/db";
 import { sha256 } from "@oslojs/crypto/sha2";
 import { eq } from "drizzle-orm";
+import { deleteSessionForUser } from "./data-access/sessions";
 
 const SESSION_REFRESH_INTERVAL_MS = 1000 * 60 * 60 * 24 * 15;
 const SESSION_MAX_DURATION_MS = SESSION_REFRESH_INTERVAL_MS * 2;
@@ -95,7 +96,7 @@ export async function invalidateSession(sessionId: string): Promise<void> {
 }
 
 export async function invalidateUserSessions(userId: UserId): Promise<void> {
-  await database.delete(sessions).where(eq(users.id, userId));
+  return await deleteSessionForUser(userId, database);
 }
 
 export type SessionValidationResult =
