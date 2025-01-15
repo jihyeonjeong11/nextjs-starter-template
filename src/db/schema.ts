@@ -130,6 +130,22 @@ export const resetTokens = pgTable(
   })
 );
 
+export const verifyEmailTokens = pgTable(
+  "gf_verify_email_tokens",
+  {
+    id: serial("id").primaryKey(),
+    userId: serial("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" })
+      .unique(),
+    token: text("token"),
+    tokenExpiresAt: timestamp("tokenExpiresAt", { mode: "date" }),
+  },
+  (table) => ({
+    tokenIdx: index("verify_email_tokens_token_idx").on(table.token),
+  })
+);
+
 /**
  * RELATIONSHIPS
  *

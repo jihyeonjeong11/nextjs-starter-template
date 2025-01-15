@@ -15,6 +15,20 @@
       "when": 1736125307981,
       "tag": "0001_woozy_beyonder",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1736918683725,
+      "tag": "0002_slim_cassandra_nova",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1736928265797,
+      "tag": "0003_tidy_havok",
+      "breakpoints": true
     }
   ]
 }

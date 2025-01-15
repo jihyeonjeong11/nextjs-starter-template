@@ -5,6 +5,8 @@ import NextTopLoader from "nextjs-toploader";
 import { BreakpointOverlay } from "@/components/breakpoint-overlay";
 import { Toaster } from "@/components/ui/toaster";
 import { Providers } from "@/providers/providers";
+import PostHogPageView from "@/components/posthog-page-view";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +35,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
+          <Suspense>
+            <PostHogPageView />
+          </Suspense>
           <NextTopLoader />
           <div>{children}</div>
         </Providers>

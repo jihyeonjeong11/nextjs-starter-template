@@ -64,10 +64,10 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   added cva for css variants
   added sign in button
 
-- [ ] `@radix-ui/react-alert-dialog`: `1.1.2`
-- [ ] `@radix-ui/react-avatar`: `1.1.1`
+- [x] `@radix-ui/react-alert-dialog`: `1.1.2`
+- [x] `@radix-ui/react-avatar`: `1.1.1`
 - [ ] `@radix-ui/react-checkbox`: `1.1.2`
-- [ ] `@radix-ui/react-dialog`: `1.1.2`
+- [x] `@radix-ui/react-dialog`: `1.1.2`
 - [ ] `@radix-ui/react-dropdown-menu`: `2.1.2`
 - [x] `@radix-ui/react-label`: `2.1.0`
 - [ ] `@radix-ui/react-popover`: `1.1.2`
@@ -75,7 +75,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - [ ] `@radix-ui/react-select`: `2.1.2`
 - [x] `@radix-ui/react-slot`: `1.1.0`
 - [ ] `@radix-ui/react-switch`: `1.1.1`
-- [ ] `@radix-ui/react-tabs`: `1.1.1`
+- [x] `@radix-ui/react-tabs`: `1.1.1`
 - [x] `@radix-ui/react-toast`: `1.2.2`
 - [ ] `@radix-ui/react-tooltip`: `1.1.4`
 
@@ -199,7 +199,46 @@ profile / settings 추가
 
 ---
 
-비밀번호 찾기
+비밀번호 찾기 onhold
+
+01/13
+
+actions.ts의 코드 구조 동일하게 할 것
+
+- 에러는 actions에서 던질 것
+
+서버에서의 error boundary
+
+- 중요한 점은 여기서 string meassage가 없는 에러인 경우 아래처럼 something when wrong만 내보내는데 이 이유는 중요한 인포를 해커에게 노출시키지 않기 위함임.
+
+```
+function shapeErrors({ err }: any) {
+  const isAllowedError = err instanceof PublicError;
+  // let's all errors pass through to the UI so debugging locally is easier
+  const isDev = env.NODE_ENV === "development";
+  if (isAllowedError || isDev) {
+    return {
+      code: err.code ?? "ERROR",
+      message: `${!isAllowedError && isDev ? "DEV ONLY ENABLED - " : ""}${
+        err.message
+      }`,
+    };
+  } else {
+    return {
+      code: "ERROR",
+      message: "Something went wrong",
+    };
+  }
+}
+
+```
+
+실제 deployment
+
+최소 가격을 생각하면
+
+db - supabase 무료 플랜으로 두개의 postgre 유지 가능.
+레일웨이 - 에서 dockerfile의 커맨드를 run.sh로 올려서 사용함 단 하나의 워커만을 사용하는것에 유의할 것
 
 ## Getting Started
 

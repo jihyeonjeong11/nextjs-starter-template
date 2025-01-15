@@ -15,8 +15,15 @@ import { UserId, UserSession } from "./types";
 import { env } from "@/env";
 import { createPasswordResetToken } from "@/data-access/reset-tokens";
 import { redirect } from "next/navigation";
-import { createTransaction } from "@/data-access/utils";
+import { createTransaction, generateRandomToken } from "@/data-access/utils";
 import { deleteSessionForUser } from "@/data-access/sessions";
+import { sendEmail } from "@/lib/send-email";
+import { applicationName, TOKEN_LENGTH, TOKEN_TTL } from "@/app-config";
+import { VerifyEmail } from "@/emails/verify-emails";
+import { database } from "@/db";
+import { verifyEmailTokens } from "@/db/schema";
+import { createVerifyEmailToken } from "@/data-access/verify-email";
+import { ResetPasswordEmail } from "@/emails/reset-password";
 
 export async function updateProfileNameUseCase(
   userId: UserId,
@@ -65,19 +72,19 @@ export async function registerUserUseCase(email: string, password: string) {
   });
   await createProfile(user.id, displayName);
 
-  // try {
-  //   const token = await createVerifyEmailToken(user.id);
-  //   await sendEmail(
-  //     email,
-  //     `Verify your email for ${applicationName}`,
-  //     <VerifyEmail token={token} />
-  //   );
-  // } catch (error) {
-  //   console.error(
-  //     "Verification email would not be sent, did you setup the resend API key?",
-  //     error
-  //   );
-  // }
+  try {
+    const token = await createVerifyEmailToken(user.id);
+    await sendEmail(
+      email,
+      `Verify your email for ${applicationName}`,
+      <VerifyEmail token={token} />
+    );
+  } catch (error) {
+    console.error(
+      "Verification email would not be sent, did you setup the resend API key?",
+      error
+    );
+  }
 
   return { id: user.id };
 }
@@ -107,7 +114,12 @@ export async function resetPasswordUseCase(email: string) {
   }
 
   const token = await createPasswordResetToken(user.id);
-  redirect(`/reset-password?token=${token}`);
+
+  await sendEmail(
+    email,
+    `Your password reset link for ${applicationName}`,
+    <ResetPasswordEmail token={token} />
+  );
 }
 
 export async function deleteUserUseCase(
