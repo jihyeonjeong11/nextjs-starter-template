@@ -17,13 +17,13 @@ import { createPasswordResetToken } from "@/data-access/reset-tokens";
 import { redirect } from "next/navigation";
 import { createTransaction, generateRandomToken } from "@/data-access/utils";
 import { deleteSessionForUser } from "@/data-access/sessions";
-import { sendEmail } from "@/lib/send-email";
 import { applicationName, TOKEN_LENGTH, TOKEN_TTL } from "@/app-config";
 import { VerifyEmail } from "@/emails/verify-emails";
 import { database } from "@/db";
 import { verifyEmailTokens } from "@/db/schema";
 import { createVerifyEmailToken } from "@/data-access/verify-email";
 import { ResetPasswordEmail } from "@/emails/reset-password";
+import { sendEmail } from "@/lib/send-email";
 
 export async function updateProfileNameUseCase(
   userId: UserId,

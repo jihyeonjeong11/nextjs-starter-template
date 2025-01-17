@@ -19,6 +19,17 @@ export const users = pgTable("gf_user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
 });
 
+export const events = pgTable("gf_events", {
+  id: serial("id").primaryKey(),
+  groupId: serial("groupId")
+    .notNull()
+    .references(() => groups.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  imageId: text("imageId"),
+  startsOn: timestamp("startsOn", { mode: "date" }).notNull(),
+});
+
 export const accounts = pgTable(
   "gf_accounts",
   {
@@ -187,3 +198,4 @@ export type Profile = typeof profiles.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
 
 export type GroupId = Group["id"];
+export type Event = typeof events.$inferSelect;

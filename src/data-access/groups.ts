@@ -1,5 +1,5 @@
 import { database } from "@/db";
-import { groups } from "@/db/schema";
+import { groups, NewGroup } from "@/db/schema";
 import { UserId } from "@/use-cases/types";
 import { omit } from "@/util/utils";
 import { eq } from "drizzle-orm";
@@ -12,6 +12,10 @@ function appendGroupMemberCount<T extends { memberships: any[] }>(group: T) {
     },
     "memberships"
   );
+}
+
+export async function createGroup(group: NewGroup) {
+  await database.insert(groups).values(group);
 }
 
 export async function getGroupsByUser(userId: UserId) {

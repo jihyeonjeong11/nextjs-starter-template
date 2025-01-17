@@ -11,7 +11,7 @@ export async function sendEmail(
   body: ReactNode
 ) {
   const { error } = await resend.emails.send({
-    from: env.EMAIL_FROM,
+    from: "hello@resend.com",
     to: email,
     subject,
     react: <>{body}</>,
