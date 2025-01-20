@@ -17,7 +17,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
 import { schema } from "./validation";
-//import { createGroupAction } from "./actions";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckIcon } from "lucide-react";
 import { btnIconStyles } from "@/styles/icons";
