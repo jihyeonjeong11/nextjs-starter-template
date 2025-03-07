@@ -180,6 +180,26 @@ export const membershipRelations = relations(memberships, ({ one }) => ({
   }),
 }));
 
+export const subscriptions = pgTable(
+  "gf_subscriptions",
+  {
+    id: serial("id").primaryKey(),
+    userId: serial("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" })
+      .unique(),
+    stripeSubscriptionId: text("stripeSubscriptionId").notNull(),
+    stripeCustomerId: text("stripeCustomerId").notNull(),
+    stripePriceId: text("stripePriceId").notNull(),
+    stripeCurrentPeriodEnd: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (table) => ({
+    stripeSubscriptionIdIdx: index(
+      "subscriptions_stripe_subscription_id_idx"
+    ).on(table.stripeSubscriptionId),
+  })
+);
+
 /**
  * TYPES
  *
@@ -187,6 +207,8 @@ export const membershipRelations = relations(memberships, ({ one }) => ({
  * This is useful when you need to know the shape of the data you are working with
  * in a component or function.
  */
+
+export type Subscription = typeof subscriptions.$inferSelect;
 
 export type Group = typeof groups.$inferSelect;
 export type NewGroup = typeof groups.$inferInsert;

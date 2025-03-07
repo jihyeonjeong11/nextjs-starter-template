@@ -20,6 +20,6 @@ export const signInAction = unauthenticatedAction
     await rateLimitByKey({ key: input.email, limit: 3, window: 10000 });
     const user = await signInUseCase(input.email, input.password);
     await setSession(user.id);
-    const tempFix = await getCurrentUser(); // jury rigging
+    await getCurrentUser();
     redirect(afterLoginUrl);
   });

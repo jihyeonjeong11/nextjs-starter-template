@@ -9,3 +9,5 @@ export const pageWrapperStyles =
   "space-y-8 container mx-auto py-12 min-h-screen";
 
 export const tabStyles = "bg-gray-200 dark:bg-slate-800 max-h-fit";
+
+export const formGroupStyles = "space-y-3";
