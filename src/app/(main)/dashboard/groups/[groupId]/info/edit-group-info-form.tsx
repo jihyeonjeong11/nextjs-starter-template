@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import React, { useRef } from "react";
 import { useServerAction } from "zsa-react";
+import { updateGroupInfoAction } from "./actions";
 
 export const MenuBar = () => {
   const { editor } = useCurrentEditor();
@@ -118,21 +119,24 @@ export const EditGroupInfoForm = ({
   isAdminOrOwner: boolean;
 }) => {
   const { toast } = useToast();
-  const { execute: updateGroupInfo, isPending } = useServerAction(() => null, {
-    onSuccess() {
-      toast({
-        title: "Success!",
-        description: "Group info has been updated.",
-      });
-    },
-    onError() {
-      toast({
-        title: "Uh-oh!",
-        variant: "destructive",
-        description: "The group info failed to update.",
-      });
-    },
-  });
+  const { execute: updateGroupInfo, isPending } = useServerAction(
+    updateGroupInfoAction,
+    {
+      onSuccess() {
+        toast({
+          title: "Success!",
+          description: "Group info has been updated.",
+        });
+      },
+      onError() {
+        toast({
+          title: "Uh-oh!",
+          variant: "destructive",
+          description: "The group info failed to update.",
+        });
+      },
+    }
+  );
   const htmlRef = useRef<string>(info);
 
   return (

@@ -6,6 +6,7 @@ import {
   getGroupsByUser,
   isAdminOrOwnerOfGroup,
   searchPublicGroupsByName,
+  updateGroup,
 } from "@/data-access/groups";
 import { UserSession } from "./types";
 import { PublicError } from "./errors";
@@ -14,12 +15,27 @@ import { MAX_GROUP_LIMIT, MAX_GROUP_PREMIUM_LIMIT } from "@/app-config";
 import { getSubscriptionPlan } from "./subscriptions";
 import { omit } from "@/util/utils";
 import { GroupId } from "@/db/schema";
+import { assertGroupOwner } from "./authorization";
 
 export async function getGroupsByUserUseCase(authenticatedUser: UserSession) {
   return [
     ...(await getGroupsByUser(authenticatedUser.id)),
     ...(await getGroupsByMembership(authenticatedUser.id)),
   ];
+}
+
+export async function updateGroupInfoUseCase(
+  authenticatedUser: UserSession,
+  {
+    groupId,
+    info,
+  }: {
+    groupId: GroupId;
+    info: string;
+  }
+) {
+  await assertGroupOwner(authenticatedUser, groupId);
+  await updateGroup(groupId, { info });
 }
 
 export async function createGroupUseCase(

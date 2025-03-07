@@ -18,13 +18,6 @@ export class EmailInUseError extends PublicError {
   }
 }
 
-export class NotFoundError extends PublicError {
-  constructor() {
-    super("Resource not found");
-    this.name = "NotFoundError";
-  }
-}
-
 export class TokenExpiredError extends PublicError {
   constructor() {
     super("Token has expired");

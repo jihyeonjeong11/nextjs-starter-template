@@ -1,5 +1,5 @@
 import { database } from "@/db";
-import { GroupId, groups, memberships, NewGroup } from "@/db/schema";
+import { Group, GroupId, groups, memberships, NewGroup } from "@/db/schema";
 import { PublicError } from "@/use-cases/errors";
 import { UserId, UserSession } from "@/use-cases/types";
 import { omit } from "@/util/utils";
@@ -22,6 +22,13 @@ export async function getGroupsByMembership(userId: UserId) {
     const group = membership.group;
     return appendGroupMemberCount(group);
   });
+}
+
+export async function updateGroup(
+  groupId: GroupId,
+  updatedGroup: Partial<Group>
+) {
+  await database.update(groups).set(updatedGroup).where(eq(groups.id, groupId));
 }
 
 function appendGroupMemberCount<T extends { memberships: any[] }>(group: T) {
