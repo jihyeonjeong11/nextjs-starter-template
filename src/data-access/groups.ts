@@ -77,20 +77,16 @@ export async function searchPublicGroupsByName(search: string, page: number) {
     ? and(eq(groups.isPublic, true), ilike(groups.name, `%${search}%`))
     : eq(groups.isPublic, true);
 
-  const allGroups = await database.query.groups.findMany({
+  const allGroups = await database.select().from(groups);
+
+  const userMemberships = await database.query.groups.findMany({
     where: condition,
+    with: {
+      memberships: true,
+    },
     limit: GROUPS_PER_PAGE,
     offset: (page - 1) * GROUPS_PER_PAGE,
   });
-
-  // const userMemberships = await database.query.groups.findMany({
-  //   where: condition,
-  //   with: {
-  //     memberships: true,
-  //   },
-  //   limit: GROUPS_PER_PAGE,
-  //   offset: (page - 1) * GROUPS_PER_PAGE,
-  // });
 
   const [countResult] = await database
     .select({
@@ -98,11 +94,14 @@ export async function searchPublicGroupsByName(search: string, page: number) {
     })
     .from(groups)
     .where(condition);
+  console.log(allGroups);
+  console.log(userMemberships);
 
   return {
-    data: allGroups
-      .map((g) => ({ ...g, memberships: [1] }))
-      .map(appendGroupMemberCount), //userMemberships.map(appendGroupMemberCount),
+    data: userMemberships.map(appendGroupMemberCount),
+    // allGroups
+    //   .map((g) => ({ ...g, memberships: [1] }))
+    //   .map(appendGroupMemberCount), //userMemberships.map(appendGroupMemberCount),
     total: countResult.count,
     perPage: GROUPS_PER_PAGE,
   };
