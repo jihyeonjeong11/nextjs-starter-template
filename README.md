@@ -36,7 +36,7 @@ Docker와 Docker Compose를 통해 postgres db를 빌드합니다. 다른 방법
 
 ## How to Run
 
-1. cp .env.sample .dnv
+1. cp .env.sample .env
 2. pnpm i
 3. docker compose up
 4. pnpm run db:migrate
